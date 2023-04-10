@@ -20,6 +20,22 @@ async function createPayer(payer) {
     }
 }
 
+async function createPayers(payers) {
+
+    try {
+        const result = await getPayerCollection().insertMany(payers);
+        console.log(result);
+        if (result.insertedCount > 0) {
+            return { success: true, status: 201, result };
+        }
+        throw new Error('Failed to insert payers!');
+    } catch (error) {
+        console.error(error);
+        return { success: false, status: 500, error: error.message };
+    }
+}
+
+
 async function getPayers() {
 
     try {
@@ -100,4 +116,5 @@ module.exports = {
     updatePayer,
     deletePayer,
     getPayerByPhone,
+    createPayers
 };

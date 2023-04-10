@@ -7,10 +7,17 @@ const port = 8000;
 
 app.use(express.json());
 
-// [POST] /payers
-app.post('/payers', async function (req, res) {
+// [POST] /payers/one
+app.post('/payers/one', async function (req, res) {
     const newPayer = req.body;
     const result = await Payer.createPayer(newPayer);
+    res.json(result)
+})
+
+// [POST] /payers/many
+app.post('/payers/many', async function (req, res) {
+    const newPayers = req.body.payers;
+    const result = await Payer.createPayers(newPayers);
     res.json(result)
 })
 
