@@ -10,19 +10,19 @@ describe('[PUT] /payers/:id', () => {
     let id = '6434384915cce570b5db5f81';
 
     before(async () => {
-        // Save the original payer data
+        // Lưu lại dữ liệu ban đầu
         const response = await chai.request(url)
             .get(`/payers/id/${id}`);
         delete response.body.payer._id
         originalPayer = response.body.payer;
 
-        // Assert that the response is successful
+        // Khẳng định lại kết quả response
         assert.equal(response.body.status, 200);
         assert.isTrue(response.body.success);
     });
 
     it('should update payer data', async () => {
-        // Make the PUT request to update the payer data
+        // Gửi PUT request để cập nhật thông tin
         const response = await chai.request(url)
             .put(`/payers/${id}`)
             .send({
@@ -40,18 +40,18 @@ describe('[PUT] /payers/:id', () => {
                 ]
             });
 
-        // Assert that the response is successful
+        // Khẳng định lại kết quả response
         assert.equal(response.body.status, 200);
         assert.isTrue(response.body.success);
     });
 
     after(async () => {
-        // Put the original payer data back
+        // Trả lại dữ liệu ban đầu
         const response = await chai.request(url)
             .put(`/payers/${id}`)
             .send(originalPayer);
 
-        // Assert that the response is successful
+        // Khẳng định lại kết quả response
         assert.equal(response.body.status, 200);
         assert.isTrue(response.body.success);
     });
@@ -60,9 +60,12 @@ describe('[PUT] /payers/:id', () => {
 
 describe('[GET]', () => {
     let phone = '098589811';
+
     it('should get the payer via phone', async () => {
         const response = await chai.request(url)
             .get(`/payers/phone/${phone}`)
+
+        // Khẳng định lại kết quả response
         assert.equal(response.body.status, 200);
         assert.isTrue(response.body.success);
 
