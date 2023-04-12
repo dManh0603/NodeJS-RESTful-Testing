@@ -58,7 +58,7 @@ describe('[PUT] /payers/:id', () => {
 
 });
 
-describe('[GET]', () => {
+describe('[GET] /payers/phone/:phone', () => {
     let phone = '098589811';
 
     it('should get the payer via phone', async () => {
@@ -70,4 +70,47 @@ describe('[GET]', () => {
         assert.isTrue(response.body.success);
 
     })
+})
+
+describe('[POST] /payers/one', () => {
+    let newPayerId;
+    const newPayer = {
+        "Mã số thuế": "000000099",
+        "Họ và tên": "Giàng Văn A",
+        "Tuổi": "25",
+        "Căn cước": "037153000257",
+        "Thông tin liên hệ": {
+            "Điện thoại": "098589811",
+            "Email": "pvt@gmail.com",
+            "Địa chỉ": "85 Hàng Bài, Hoàn Kiếm, Hà Nội"
+        },
+        "Người phụ thuộc": [
+            "023153000257",
+            "032153000257",
+            "032153000257"
+        ]
+    };
+
+    it('should create new payer with given body and delete it', async () => {
+        const response = await chai.request(url)
+            .post('/payers/one')
+            .send(newPayer)
+
+        // Lưa lại id của bản ghi vừa thêm vào
+        newPayerId = response.body.result.insertedId;
+
+        // Khẳng định lại kết quả response
+        assert.equal(response.body.status, 201);
+        assert.isTrue(response.body.success);
+    })
+
+    after(async () => {
+        const response = await chai.request(url)
+            .delete(`/payers/${newPayerId}`)
+
+        // Khẳng định lại kết quả response
+        assert.equal(response.body.status, 200);
+        assert.isTrue(response.body.success);
+    })
+
 })

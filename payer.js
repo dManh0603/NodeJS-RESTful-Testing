@@ -9,7 +9,6 @@ async function createPayer(payer) {
 
     try {
         const result = await getPayerCollection().insertOne(payer);
-        console.log(result);
         if (result.insertedId) {
             return { success: true, status: 201, result };
         }
@@ -24,7 +23,6 @@ async function createPayers(payers) {
 
     try {
         const result = await getPayerCollection().insertMany(payers);
-        console.log(result);
         if (result.insertedCount > 0) {
             return { success: true, status: 201, result };
         }
