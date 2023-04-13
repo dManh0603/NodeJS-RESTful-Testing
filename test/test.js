@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
-const url = 'localhost:8000';
+const TestServer = 'localhost:8323';
 
 chai.use(chaiHttp);
 
@@ -11,8 +11,9 @@ describe('[PUT] /payers/:id', () => {
 
     before(async () => {
         // Lưu lại dữ liệu ban đầu
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .get(`/payers/id/${id}`);
+            
         delete response.body.payer._id
         originalPayer = response.body.payer;
 
@@ -23,7 +24,7 @@ describe('[PUT] /payers/:id', () => {
 
     it('should update payer data', async () => {
         // Gửi PUT request để cập nhật thông tin
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .put(`/payers/${id}`)
             .send({
                 "Họ và tên": "Nguyễn Văn A",
@@ -47,7 +48,7 @@ describe('[PUT] /payers/:id', () => {
 
     after(async () => {
         // Trả lại dữ liệu ban đầu
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .put(`/payers/${id}`)
             .send(originalPayer);
 
@@ -62,7 +63,7 @@ describe('[GET] /payers/phone/:phone', () => {
     let phone = '098589811';
 
     it('should get the payer via phone', async () => {
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .get(`/payers/phone/${phone}`)
 
         // Khẳng định lại kết quả response
@@ -92,7 +93,7 @@ describe('[POST] /payers/one', () => {
     };
 
     it('should create new payer with given body and delete it', async () => {
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .post('/payers/one')
             .send(newPayer)
 
@@ -105,7 +106,7 @@ describe('[POST] /payers/one', () => {
     })
 
     after(async () => {
-        const response = await chai.request(url)
+        const response = await chai.request(TestServer)
             .delete(`/payers/${newPayerId}`)
 
         // Khẳng định lại kết quả response
