@@ -17,7 +17,7 @@ describe('[PUT] /payers/:id', () => {
         originalPayer = response.body.payer;
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 200);
+        assert.equal(response.status, 200);
         assert.isTrue(response.body.success);
     });
 
@@ -41,7 +41,7 @@ describe('[PUT] /payers/:id', () => {
             });
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 200);
+        assert.equal(response.status, 200);
         assert.isTrue(response.body.success);
     });
 
@@ -52,7 +52,7 @@ describe('[PUT] /payers/:id', () => {
             .send(originalPayer);
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 200);
+        assert.equal(response.status, 200);
         assert.isTrue(response.body.success);
     });
 
@@ -66,7 +66,7 @@ describe('[GET] /payers/phone/:phone', () => {
             .get(`/payers/phone/${phone}`)
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 200);
+        assert.equal(response.status, 200);
         assert.isTrue(response.body.success);
 
     })
@@ -100,7 +100,7 @@ describe('[POST] /payers/one', () => {
         newPayerId = response.body.result.insertedId;
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 201);
+        assert.equal(response.status, 201);
         assert.isTrue(response.body.success);
     })
 
@@ -109,7 +109,7 @@ describe('[POST] /payers/one', () => {
             .delete(`/payers/${newPayerId}`)
 
         // Khẳng định lại kết quả response
-        assert.equal(response.body.status, 200);
+        assert.equal(response.status, 200);
         assert.isTrue(response.body.success);
     })
 
