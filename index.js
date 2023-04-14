@@ -3,9 +3,7 @@ const Payer = require('./payer')
 const express = require('express');
 const app = express();
 
-const APIport = 8342;
-const TestServerport = 8323;
-
+const port = 8342;
 
 app.use(express.json());
 
@@ -87,12 +85,7 @@ app.get('/payers/phone/:phone', async function (req, res) {
 })
 
 
-app.listen(APIport, () => {
+app.listen(port, () => {
     connectDb()
-    console.log(`API Server is listening on port ${APIport}`);
-});
-
-app.listen(TestServerport, () => {
-    connectDb()
-    console.log(`Test Server is listening on port ${TestServerport}`);
+    console.log(`Server is listening on port ${port}`);
 });

@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
-const TestServer = 'localhost:8323';
+const TestServer = 'localhost:8342';
 
 chai.use(chaiHttp);
 
@@ -22,7 +22,7 @@ describe('[PUT] /payers/:id', () => {
         assert.isTrue(response.body.success);
     });
 
-    it('should update payer data', async () => {
+    it('should update the payer data and restore it back', async () => {
         // Gửi PUT request để cập nhật thông tin
         const response = await chai.request(TestServer)
             .put(`/payers/${id}`)
